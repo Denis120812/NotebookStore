@@ -1,6 +1,7 @@
+
 import java.util.*;
 
-class Laptop {
+class Laptop { // структура для ноутбука с полями
     String manufacturer;
     String os;
     int ram;
@@ -15,7 +16,6 @@ class Laptop {
         this.color = color;
     }
 
-    // getters for all fields
     public String getManufacturer() { return manufacturer; }
     public String getOs() { return os; }
     public int getRam() { return ram; }
@@ -23,7 +23,7 @@ class Laptop {
     public String getColor() { return color; }
 }
 
-class LaptopStore {
+class LaptopStore { // множество ноутбуков с параметрами
     Set<Laptop> laptops;
 
     public LaptopStore() {
@@ -38,24 +38,23 @@ class LaptopStore {
         laptops.add(new Laptop("Lenovo", "Linux", 32, 256, "Space Gray"));
     }
 
-    public Set<Laptop> filter(Map<String, Object> filters) {
+    public Set<Laptop> filter(Map<String, Object> filters) {// карта фильтров с ключами
         Set<Laptop> result = new HashSet<>(laptops);
         for (Map.Entry<String, Object> filter : filters.entrySet()) {
             String key = filter.getKey();
             Object value = filter.getValue();
             if (key.equals("Manufacturer")) {
                 result.retainAll(laptopsWithManufacturer((String) value));
-            }else if (key.equals("Operating System")) {
+            } else if (key.equals("Operating System")) {
                 result.retainAll(laptopsWithOperatingSystem((String) value));
-            }else if (key.equals("RAM")) {
-                result.retainAll(laptopsWithRAM((Integer) value));   
-            }else if (key.equals("Storage")) {
-                result.retainAll(laptopsWithStorage((Integer) value));   
-            }else if (key.equals("Color")) {
-                result.retainAll(laptopsWithColor((String) value));          
-                
+            } else if (key.equals("RAM")) {
+                result.retainAll(laptopsWithRAM((Integer) value));
+            } else if (key.equals("Storage")) {
+                result.retainAll(laptopsWithStorage((Integer) value));
+            } else if (key.equals("Color")) {
+                result.retainAll(laptopsWithColor((String) value));
+
             }
-            // Add more conditions for other keys as needed
         }
         return result;
     }
@@ -67,7 +66,7 @@ class LaptopStore {
                 result.add(laptop);
             }
         }
-    
+
         return result;
     }
 
@@ -100,7 +99,7 @@ class LaptopStore {
         }
         return result;
     }
-    
+
     private Set<Laptop> laptopsWithColor(String color) {
         Set<Laptop> result = new HashSet<>();
         for (Laptop laptop : laptops) {
@@ -108,12 +107,11 @@ class LaptopStore {
                 result.add(laptop);
             }
         }
-    
+
         return result;
     }
-    
 
-    // Method to get all manufacturers
+    
     public Set<String> getAllManufacturers() {
         Set<String> manufacturers = new HashSet<>();
         for (Laptop laptop : laptops) {
@@ -153,23 +151,5 @@ class LaptopStore {
         }
         return colors;
     }
-
-    public String getManufacturerByIndex(int index) {
-        List<String> manufacturersList = new ArrayList<>(getAllManufacturers());
-        if (index >= 0 && index < manufacturersList.size()) {
-            return manufacturersList.get(index);
-        } else {
-            return null;
-        }
-    }
-
-    public String getOsByIndex(int index) {
-        List<String> osList = new ArrayList<>(getAllOss());
-        if (index >= 0 && index < osList.size()) {
-            return osList.get(index);
-        } else {
-            return null;
-        }
-    }
-
 }
+
